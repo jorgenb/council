@@ -9,6 +9,8 @@
         <div>
             @include('breadcrumbs')
 
+            <viewing-thread></viewing-thread>
+
             <div class="py-6 leading-normal">
                 @include ('threads._question')
 
