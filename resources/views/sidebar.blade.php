@@ -65,4 +65,13 @@
             </ul>
         </div>
     @endif
+
+    @if (config('broadcasting.default') === 'pusher' || config('broadcasting.default') === 'redis' )
+        <div class="widget">
+            <h4 class="widget-heading">Who's online?</h4>
+    
+            <users-online></users-online>    
+        </div>                
+    @endif
+
 </aside>
