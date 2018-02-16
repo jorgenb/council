@@ -19,6 +19,10 @@
             <button type="submit"
                     class="btn is-green"
                     @click="addReply">Post</button>
+
+            <div>
+              <is-typing></is-typing>
+            </div>
         </div>
     </div>
 </template>
@@ -70,7 +74,26 @@ export default {
 
                     this.$emit("created", data);
                 });
+        },
+        // wait until the user has finished typing before broadcasting
+        typing: _.debounce(() => {
+            window.Echo.private(`forum.${window.channel}`).whisper('typing', {
+              user: window.App.user
+            });
+          },
+          // # of ms we wait for the user to stop typing.
+          500
+        )
+    },
+
+    watch: {
+      body(val) {
+        if (val === '') {
+          return;
         }
+        
+        this.typing();
+      }
     }
 };
 </script>

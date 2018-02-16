@@ -32,6 +32,13 @@ export default {
 
     created() {
         this.fetch();
+
+        if (typeof window.Echo !== 'undefined') {
+            window.Echo.channel(`reply.${window.channel}`)
+              .listen('ThreadReceivedNewReply', (event) => {
+                this.fetch();
+              });
+        }
     },
 
     methods: {
